@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <script>
+      (function() {
+        const calls = [];
+        const storeCalls = name => (...args) => calls.push({ name, args });
+
+        window.Tapas = {
+          bindElement: storeCalls("bindElement"),
+          runAll: () =>
+            calls.forEach(({ name, args }) => window.Tapas[name](...args))
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <section>
+      <h1 data-tapas-id="1ab3">
+        <script>
+          Tapas.bindElement({
+            id: "1ab3",
+            selectors: [
+              {
+                selector: "selectPageDetails",
+                name: "$pageDetails"
+              }
+            ],
+            text: {
+              value: "$pageDetails.title.toUpperCase()"
+            },
+            attributes: [
+              {
+                name: "title",
+                value: "$pageDetails.title"
+              }
+            ],
+            classes: [
+              {
+                name: "has-title",
+                value: "$pageDetails.title"
+              }
+            ]
+          });
+        </script>
+      </h1>
+      <form data-tapas-id="sdf2">
+        <script>
+          Tapas.bindElement({
+            id: "sdf2",
+            events: [
+              {
+                name: "submit",
+                action: "loadList",
+                callback: "$event.preventDefault()"
+              }
+            ]
+          });
+        </script>
+        <input data-tapas-id="3sw23" />
+        <script>
+          Tapas.bindElement({
+            id: "3sw23",
+            selectors: [
+              {
+                selector: "selectSearch",
+                name: "$search"
+              }
+            ],
+            attributes: [
+              {
+                name: "value",
+                value: "$search"
+              },
+              {
+                name: "disabled",
+                value:
+                  "$state.test && $state.test.length === 15 ? true : undefined"
+              }
+            ],
+            events: [
+              {
+                name: "input",
+                action: "setSearch",
+                value: "$event.target.value"
+              },
+              {
+                name: "input",
+                callback: "setState({test: $event.target.value});"
+              }
+            ]
+          });
+        </script>
+        <button data-tapas-id="ze334">
+          <script>
+            Tapas.bindElement({
+              id: "ze334",
+              selectors: [
+                {
+                  selector: "selectSearch",
+                  name: "$search"
+                }
+              ],
+              text: {
+                value: "$search ? 'Search for ' + $search : 'Enter a search'"
+              },
+              attributes: [
+                {
+                  name: "disabled",
+                  value: "!$search ? true : undefined"
+                }
+              ]
+            });
+          </script>
+          Enter a search
+        </button>
+      </form>
+      <h2 data-tapas-id="ggg35">
+        <script>
+          Tapas.bindElement({
+            id: "ggg35",
+            selectors: [
+              {
+                selector: "selectSearch",
+                name: "$search"
+              },
+              {
+                selector: "selectList",
+                name: "$list"
+              }
+            ],
+            text: {
+              value: "$list.length && $search ? 'Searched for ' + $search : ''"
+            }
+          });
+        </script>
+      </h2>
+      <div data-tapas-id="p23d1">
+        <script>
+          Tapas.bindElement({
+            id: "p23d1",
+            selectors: [
+              {
+                selector: "selectItemsLoading",
+                name: "$loading"
+              },
+              {
+                selector: "selectItemsLoadingError",
+                name: "$error"
+              }
+            ],
+            text: {
+              value: "$loading ? 'Loading items...' : ($error ? $error : '')"
+            }
+          });
+        </script>
+      </div>
+      <ul data-tapas-id="lk234">
+        <script>
+          Tapas.bindElement({
+            id: "lk234",
+            selectors: [
+              {
+                selector: "selectItemList",
+                name: "$listItems"
+              }
+            ],
+            list: {
+              value: "$listItems",
+              itemName: "$item",
+              itemKey: "url"
+            }
+          });
+        </script>
+        <li data-tapas-id="mzmd1" style="display: none;">
+          <script>
+            Tapas.bindElement({
+              id: "mzmd1",
+              attributes: [
+                {
+                  name: "title",
+                  value: "$item.name.toUpperCase()"
+                }
+              ],
+              events: [
+                {
+                  name: "click",
+                  callback: "console.log('clicked', $item.name)"
+                }
+              ]
+            });
+          </script>
+          <i data-tapas-id="lop23">
+            <script>
+              Tapas.bindElement({
+                id: "lop23",
+                text: {
+                  value: "$item.name"
+                }
+              });
+            </script>
+          </i>
+          <ul data-tapas-id="pp23x">
+            <script>
+              Tapas.bindElement({
+                id: "pp23x",
+                selectors: [
+                  {
+                    selector: "selectFilmsByUrl",
+                    selectorArgs: ["$item.films"],
+                    name: "$films"
+                  }
+                ],
+                attributes: [
+                  {
+                    name: "title",
+                    value: "$item.name"
+                  }
+                ],
+                events: [
+                  {
+                    name: "init",
+                    action: "loadFilms",
+                    value: "$item.films"
+                  }
+                ],
+                list: {
+                  value: "$films",
+                  itemKey: "url",
+                  itemName: "$film"
+                }
+              });
+            </script>
+            <li data-tapas-id="hj23f" style="display: none;">
+              <i data-tapas-id="p23sz">
+                <script>
+                  Tapas.bindElement({
+                    id: "p23sz",
+                    text: {
+                      value: "$film.title"
+                    }
+                  });
+                </script>
+              </i>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <h2 data-tapas-id="h2dz4">
+        <script>
+          Tapas.bindElement({
+            id: "h2dz4",
+            selectors: [
+              {
+                selector: "selectUsername",
+                name: "$username"
+              },
+              {
+                selector: "selectPassword",
+                name: "$password"
+              }
+            ],
+            text: [
+              {
+                value: "$username",
+                target: "span"
+              },
+              {
+                value: "$password",
+                transform: "hidden",
+                target: "i"
+              }
+            ]
+          });
+        </script>
+        Login credentials:
+        <br /><small><span></span>: <i></i></small>
+      </h2>
+      <h3 data-tapas-id="723sa">
+        <script>
+          Tapas.bindElement({
+            id: "723sa",
+            selectors: [
+              {
+                selector: "custom",
+                selectorArgs: ["'list.pageDetails.title'"],
+                name: "$title"
+              }
+            ],
+            text: [
+              {
+                value: "$title",
+                target: "span"
+              }
+            ]
+          });
+        </script>
+        Custom selector: <span></span>
+      </h3>
+      <button data-tapas-id="0a34z">
+        <script>
+          Tapas.bindElement({
+            id: "0a34z",
+            events: [
+              {
+                name: "click",
+                action: "addItem",
+                value:
+                  "{ id: Date.now(), title: 'test', films: [], name: 'A Star War #' + Date.now(), subItems: [{ id: 1, name: 'Sub item #1' }, { id: 2, name: 'Sub item #2' }] }"
+              }
+            ]
+          });
+        </script>
+        Add Item To List
+      </button>
+    </section>
+    <script src="src/index.js"></script>
+  </body>
+</html>
